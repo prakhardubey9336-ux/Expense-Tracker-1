@@ -1,0 +1,25 @@
+# Render blueprint for SmartSpend (https://render.com).
+# ---------------------------------------------------------------------------
+# In Render: New → Blueprint → pick this repository → Apply.
+# It runs the real Node app, which is what the API and SQLite need.
+#
+# HONEST NOTE ABOUT STORAGE
+# The free plan has an EPHEMERAL disk: expense-tracker.db is re-created on every
+# deploy or restart, so anything you type disappears. For a demo that is fine —
+# SMARTSPEND_SEED_DEMO=1 refills the sample data on each boot. For permanent
+# data, attach a persistent disk (paid) and keep SMARTSPEND_DB pointing at it.
+services:
+  - type: web
+    name: smartspend
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: SMARTSPEND_SEED_DEMO
+        value: "1"          # ← demo rows on an empty database; set to 0 for a blank app
+      - key: SMARTSPEND_DB
+        value: /opt/render/project/src/expense-tracker.db

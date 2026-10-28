@@ -1,0 +1,11 @@
+# Never bake these into the image
+node_modules
+expense-tracker.db
+expense-tracker.db-wal
+expense-tracker.db-shm
+*.db
+*.db.*backup
+.git
+tests-ui/out
+tests-ui/node_modules
+*.log
